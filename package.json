@@ -16,7 +16,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.1",
     "less": "^4.2.1",
-    "unplugin-vue-components": "^0.21.1",
+    "unplugin-vue-components": "^0.21.2",
     "vite": "^3.0.1"
   }
 }
