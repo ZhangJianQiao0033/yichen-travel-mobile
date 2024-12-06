@@ -1,8 +1,7 @@
 <template>
   <div class="app">
-    APP VUE
+    
     <RouterView/>
-
     <TabBar></TabBar>
   </div>
 </template>
