@@ -20,6 +20,19 @@
       </div>
     </div>
     <van-calendar v-model:show="showCalendar" @confirm="onConfirm" :round="false" type="range" :show-confirm="false"/>
+
+    <div class="item price-count">
+      <div class="price">价格不限</div>
+      <div class="count">人数不限</div>
+    </div>
+
+    <div class="item keyword">关键字/位置/民宿名</div>
+
+    <div class="hot-suggests">
+      <template v-for="(item, index) in hotSuggests" :key="index">
+        <div class="item1" :style="{ color: item.tagText.color, background: item.tagText.background.color }">{{ item.tagText.text }}</div>
+      </template>
+    </div>
   </div>
  
 </template>
@@ -30,6 +43,7 @@ import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 import { formatMonthDay, calculateDaysBetween } from '@/utils/format_month_day';
 import { ref } from 'vue';
+import useHomeStore from '@/store/modules/home';
   const router = useRouter()
   const cityClick = () => {
     router.push("/city")
@@ -70,6 +84,13 @@ import { ref } from 'vue';
   const dateClick = () => {
     showCalendar.value = true
   }
+
+
+  // hot suggests
+  const homeStore = useHomeStore()
+  homeStore.fetchHotSuggests()
+  const {hotSuggests} = storeToRefs(homeStore)
+
 </script>
 
 <style scoped lang="less">
@@ -83,13 +104,14 @@ import { ref } from 'vue';
     height: 44px;
     
     .city {
+      font-size: 15px;
       flex: 1;
     }
     .position {
       display: flex;
       width: 74px;
       align-items: center;
-
+      color: #666666;
       .text {
         position: relative;
         top:2px;
@@ -117,7 +139,7 @@ import { ref } from 'vue';
       display: flex;
       flex-direction: column;
       justify-content: center;
-      
+      font-size: 15px;
       .tip {
         font-size: 12px;
         color: #999999;
@@ -130,6 +152,38 @@ import { ref } from 'vue';
 
     .end {
       margin-right: 15px;
+    }
+  }
+  .price-count {
+    .price {
+      color: #999999;
+    }
+    .count {
+      margin-right: 15px;
+      color:  #999999;
+    }
+
+  }
+  .keyword {
+    color:  #999999;
+  }
+
+  .hot-suggests {
+    
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 10px 0;
+    height: 44px;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--line-color);
+    
+    .item1 {
+      padding: 4px 8px;
+      margin: 4px;
+      border-radius: 14px;
+      font-size: 12px;
+      line-height: 1;
     }
   }
 </style>
