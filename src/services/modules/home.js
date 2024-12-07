@@ -4,3 +4,9 @@ export function getHotSuggests() {
     url: "/home/hotSuggests"
   })
 }
+
+export function getHomeCategories() {
+  return YCRequest.get({
+    url: "/home/categories"
+  })
+}

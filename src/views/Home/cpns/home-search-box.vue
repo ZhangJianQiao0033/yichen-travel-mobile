@@ -33,6 +33,11 @@
         <div class="item1" :style="{ color: item.tagText.color, background: item.tagText.background.color }">{{ item.tagText.text }}</div>
       </template>
     </div>
+
+    <!-- 搜索框 -->
+    <div class="search item" >
+      <div class="btn" @click="searchClick">开始搜索</div>
+    </div>
   </div>
  
 </template>
@@ -88,8 +93,20 @@ import useHomeStore from '@/store/modules/home';
 
   // hot suggests
   const homeStore = useHomeStore()
-  homeStore.fetchHotSuggests()
+  
   const {hotSuggests} = storeToRefs(homeStore)
+
+  //搜索框
+  const searchClick = () => {
+    router.push({
+      path: "/search",
+      query: {
+        startDate: startDate.value,
+        endDate: endDate.value,
+        city: city.value.cityName
+      }
+    })
+  }
 
 </script>
 
@@ -174,7 +191,7 @@ import useHomeStore from '@/store/modules/home';
     align-items: center;
     flex-wrap: wrap;
     margin: 10px 0;
-    height: 44px;
+    height: auto;
     padding: 0 20px;
     border-bottom: 1px solid var(--line-color);
     
@@ -184,6 +201,20 @@ import useHomeStore from '@/store/modules/home';
       border-radius: 14px;
       font-size: 12px;
       line-height: 1;
+    }
+  }
+
+  .search {
+    .btn {
+      width: 335px;
+      height: 38px;
+      line-height: 38px;
+      font-weight: 500;
+      font-size: 18px;
+      color: #fff;
+      text-align: center;
+      border-radius: 20px;
+      background-image: var(--theme-linear-gradient);
     }
   }
 </style>
