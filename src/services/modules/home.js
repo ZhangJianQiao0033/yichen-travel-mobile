@@ -10,3 +10,12 @@ export function getHomeCategories() {
     url: "/home/categories"
   })
 }
+
+export function getHomeHouseList(currentPage) {
+  return YCRequest.request({
+    url: "/home/houselist",
+    params: {
+      page: currentPage
+    }
+  })
+}
