@@ -11,12 +11,12 @@
     <div class="item date-range" @click="dateClick" >
       <div class="date start">
         <span class="tip">入住</span>
-        <span class="time">{{startDate}}</span>
+        <span class="time">{{startDateStr}}</span>
       </div>
       <div class="stay">共{{stayCount}}晚</div>
       <div class="date end">
         <span class="tip">离店</span>
-        <span class="time">{{endDate}}</span>
+        <span class="time">{{endDateStr}}</span>
       </div>
     </div>
     <van-calendar v-model:show="showCalendar" @confirm="onConfirm" :round="false" type="range" :show-confirm="false"/>
@@ -47,8 +47,9 @@ import useCityStore from '@/store/modules/city';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 import { formatMonthDay, calculateDaysBetween } from '@/utils/format_month_day';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import useHomeStore from '@/store/modules/home';
+import useMainStore from '@/store/modules/main';
   const router = useRouter()
   const cityClick = () => {
     router.push("/city")
@@ -71,17 +72,19 @@ import useHomeStore from '@/store/modules/home';
 
 
   // 日期
-  const startDate = ref(formatMonthDay(new Date()))
-  const newDate = new Date()
-  newDate.setDate(newDate.getDate() + 1)
-  const endDate = ref(formatMonthDay(newDate))
 
+  
   const showCalendar = ref(false)
-  const stayCount = ref(calculateDaysBetween(new Date(), newDate))
+  const mainStore = useMainStore()
+  const {startDate, endDate} = storeToRefs(mainStore)
+  const startDateStr = computed(() => formatMonthDay(startDate.value))
+  const endDateStr = computed(() => formatMonthDay(endDate.value))
+  const stayCount = ref(calculateDaysBetween(startDate.value, endDate.value))
+  
   const onConfirm = (value) => {
-    console.log(value);
-    startDate.value = formatMonthDay(value[0])
-    endDate.value = formatMonthDay(value[1])
+    
+    startDate.value = value[0]
+    endDate.value = value[1]
     stayCount.value = calculateDaysBetween(value[0], value[1])
     showCalendar.value = false
   }

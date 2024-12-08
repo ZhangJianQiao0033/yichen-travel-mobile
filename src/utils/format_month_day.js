@@ -1,8 +1,8 @@
 import dayjs from "dayjs"
 
-export function formatMonthDay(date) {
+export function formatMonthDay(date, format = "MM月DD日") {
 
-  return dayjs(date).format("MM月DD日")
+  return dayjs(date).format(format)
 }
 
 export function calculateDaysBetween(startDate, endDate) {
