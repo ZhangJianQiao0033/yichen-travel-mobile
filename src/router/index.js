@@ -40,6 +40,9 @@ const router = createRouter({
     {
       path: "/houseDetail/:houseId",
       component: () => import("@/views/house-detail/house-detail.vue"),
+      meta: {
+        hideTabbar: true
+      }
     }
   ]
 })
