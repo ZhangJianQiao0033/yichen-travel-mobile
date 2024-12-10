@@ -8,12 +8,12 @@
     </div>
     <div class="brief">
       <div class="left">
-        <div class="score">{{ topInfos?.commentBrief?.overall }}</div>
-        <div class="scoreTitle">{{ topInfos?.commentBrief?.scoreTitle }}</div>
-        <div class="comment">{{ topInfos.commentBrief?.commentBrief }}</div>
+        <div class="score">{{ topInfos.commentBrief.overall }}</div>
+        <div class="scoreTitle">{{ topInfos.commentBrief.scoreTitle }}</div>
+        <div class="comment">{{ topInfos.commentBrief.commentBrief }}</div>
       </div>
      <div class="right">
-      <div class="comment-cout">{{ topInfos.commentBrief?.totalCount }}条评论</div>
+      <div class="comment-cout">{{ topInfos.commentBrief.totalCount }}条评论</div>
       <van-icon name="arrow" />
      </div>
     </div>

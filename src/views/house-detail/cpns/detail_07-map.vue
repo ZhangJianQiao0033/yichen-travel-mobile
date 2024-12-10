@@ -18,9 +18,6 @@ const props = defineProps({
 const mapRef = ref()
 onMounted(() => {
   const map = new BMapGL.Map(mapRef.value);
-  console.log(props.positionInfo);
-  console.log(props.positionInfo.longitude);
-  console.log(props.positionInfo.latitude);
 
   const point = new BMapGL.Point(props.positionInfo.longitude, props.positionInfo.latitude);
   var marker = new BMapGL.Marker(point);        // 创建标注   
