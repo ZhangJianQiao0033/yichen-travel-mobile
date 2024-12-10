@@ -34,7 +34,18 @@
         </template>
       </div>
       <div class="content">
-        
+        <div class="user">
+          <div class="avatar">
+            <img :src="commentInfo.comment.userAvatars" alt="">
+          </div> 
+          <div class="profile">
+            <div class="name">{{ commentInfo.comment.userName }}</div>
+          <div class="date">{{ commentInfo.comment.checkInDate }}</div>
+          </div>
+        </div>
+        <div class="text">
+          {{ commentInfo.comment.commentDetail }}
+        </div>
       </div>
 
     </div>
@@ -119,6 +130,40 @@ defineProps({
       margin-top: 3px;
       border-radius: 10px;
       font-size: 12px;
+    }
+  }
+
+  .content {
+    padding: 10px;
+    border-radius: 6px;
+    background-color: #f7f9fb;
+    .user {
+      display: flex;
+      .avatar {
+        img {
+          width: 32px;
+          height: 32px;
+          border-radius: 45%;
+        }
+      }
+      .profile {
+
+        margin-left: 5px;
+        .name {
+          color: #000;
+        }
+        .date {
+          margin-top: 5px;
+          font-size: 12px;
+          color: #666;
+        }
+      }
+    }
+
+    .text {
+      margin-top: 16px;
+      font-size: 12px;
+      color: #333;
     }
   }
 }

@@ -23,7 +23,7 @@ defineProps({
   },
   more: {
     type: String,
-    default: "查看更多"
+    default: ""
   }
 })
 
