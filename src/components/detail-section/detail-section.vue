@@ -7,7 +7,7 @@
       <slot></slot>
     </div>
 
-    <div class="footer">
+    <div class="footer" v-if="more.length">
       <div class="more">{{ more }}</div>
       <van-icon name="arrow" />
     </div>

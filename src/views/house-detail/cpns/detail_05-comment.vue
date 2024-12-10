@@ -36,15 +36,15 @@
       <div class="content">
         <div class="user">
           <div class="avatar">
-            <img :src="commentInfo.comment.userAvatars" alt="">
+            <img :src="commentInfo.comment?.userAvatars" alt="">
           </div> 
           <div class="profile">
-            <div class="name">{{ commentInfo.comment.userName }}</div>
-          <div class="date">{{ commentInfo.comment.checkInDate }}</div>
+            <div class="name">{{ commentInfo.comment?.userName }}</div>
+          <div class="date">{{ commentInfo.comment?.checkInDate }}</div>
           </div>
         </div>
         <div class="text">
-          {{ commentInfo.comment.commentDetail }}
+          {{ commentInfo.comment?.commentDetail }}
         </div>
       </div>
 

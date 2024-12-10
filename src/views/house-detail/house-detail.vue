@@ -18,6 +18,8 @@
     <Detail_03Facility v-if="mainPart && mainPart.dynamicModule" :houseFacility="mainPart.dynamicModule.facilityModule.houseFacility" />
     <detail_04Landlord :landlordInfo="mainPart?.dynamicModule.landlordModule"/>
     <detail_05Comment :commentInfo="mainPart?.dynamicModule.commentModule"/>
+    <detail_06Notice :orderRules="mainPart?.dynamicModule.rulesModule.orderRules"/>
+    <detail_07Map v-if="mainPart && mainPart.dynamicModule" :positionInfo="mainPart.dynamicModule.positionModule"/>
   </div>
 </template>
 
@@ -30,7 +32,8 @@ import detail_02Infos from './cpns/detail_02-infos.vue';
 import Detail_03Facility from './cpns/detail_03-facility.vue';
 import detail_04Landlord from './cpns/detail_04-landlord.vue';
 import detail_05Comment from './cpns/detail_05-comment.vue';
-
+import detail_06Notice from './cpns/detail_06-notice.vue';
+import detail_07Map from './cpns/detail_07-map.vue';
 const route = useRoute()
 const router = useRouter()
 const houseId = route.params.houseId
