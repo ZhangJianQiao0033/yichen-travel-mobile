@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" ref="homeRef">
     <homeNavBar></homeNavBar>
     <div class="banner">
       <img src="@/assets/img/home/banner.webp" alt="">
@@ -12,9 +12,12 @@
     <!-- <button @click="btnClick">加载更多</button> -->
   </div>
 </template>
+<script>
+export default { name: "home" }
 
+</script>
 <script setup>
-import { computed, ref, watch } from 'vue';
+import { computed, onActivated, ref, watch } from 'vue';
 import homeNavBar from './cpns/home-nav-bar.vue';
 import homeSearchBox from './cpns/home-search-box.vue';
 import homeCategories from './cpns/home-categories.vue';
@@ -32,8 +35,8 @@ homeStore.fetchHouseList()
 //   homeStore.fetchHouseList()
 // }
 
-
-const { isReachBottom, scrollTop } = useScroll()
+const homeRef = ref()
+const { isReachBottom, scrollTop } = useScroll(homeRef)
 
 watch(isReachBottom, (newValue) => {
   if(newValue) {
@@ -47,13 +50,20 @@ const isShowSearchBar = computed(() => {
   return scrollTop.value > 150
 })
 
-
+onActivated(() => {
+  homeRef.value.scrollTo({
+    top: scrollTop.value
+  })
+})
 
 </script>
 
 <style scoped lang="less">
   .home {
-    margin-bottom: 60px;
+    height: 100vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding-bottom: 60px;
     .banner {
       img {
         width: 100%;
