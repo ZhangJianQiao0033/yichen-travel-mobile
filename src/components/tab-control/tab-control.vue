@@ -11,23 +11,59 @@
 </template>
 
 <script setup>
+import useScroll from '@/hooks/useScroll';
+import { watch } from 'vue';
+import { ref } from 'vue';
+
+const active = ref(0)
 const props = defineProps({
   sectionEls: {
     type: Object,
     default: () => ({})
+  },
+  detailEl: {
+    type: Object,
+    default: () => ({})
   }
 })
+const {scrollTop} = useScroll(ref(props.detailEl))
+
+let isClick = false
+let currentDistance = -1
 const onClickTab = (value) => {
   const el = props.sectionEls[value.title]
-  let instance = el.offsetTop
+  let distance = el.offsetTop
   if(value.name != 0) {
-    instance = instance - 50
+    distance = distance - 50
   }
-  window.scrollTo({
-    top: instance,
+  isClick = true
+  currentDistance = distance
+  props.detailEl.scrollTo({
+    top: distance,
     behavior: 'smooth'
   })
 }
+
+watch(scrollTop, (newValue) => {
+  if(newValue === currentDistance) {
+    isClick = false
+  }
+  if(isClick) {
+    return
+  }
+  const values = Object.values(props.sectionEls).map(el => el.offsetTop)
+  
+  let index = values.length - 1
+  for(let i =0; i < values.length; i++) {
+    if(values[i] > newValue + 70) {
+      index = i - 1
+      break
+    }
+  }
+  active.value = index
+})
+
+
 
 </script>
 

@@ -22,12 +22,13 @@ export default function useScroll(elRef) {
       isReachBottom.value = true
       
     }
-  },200)
+  },100)
 
   onMounted(() => {
     if(elRef) {
       el = elRef.value
     }
+    // console.log("el",el);
     el.addEventListener("scroll", scrollListenerHandler)
   })
   onUnmounted(() => {

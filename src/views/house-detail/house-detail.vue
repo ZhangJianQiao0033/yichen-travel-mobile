@@ -1,8 +1,8 @@
 <template>
 
   <!--1.导航栏 -->
-  <div class="house-detail" ref="detailRef">
-    <tabControl :sectionEls="sectionEls" v-if="showTabControl"/>
+  <div class="house-detail topPage" ref="detailRef">
+    <tabControl :sectionEls="sectionEls" v-if="showTabControl" :detailEl="detailRef"/>
     <van-nav-bar
       title="房屋详情"
       left-text="旅途"
@@ -10,19 +10,17 @@
       @click-left="onClickLeft"
     />
     <!--2.轮播图 -->
-    <template v-if="mainPart">
+    <template v-if="mainPart && mainPart.topModule">
       <detail_01Carousel :housePics="mainPart.topModule.housePicture.housePics"/>
+      <detail_02Infos  :topInfos="mainPart.topModule" titile="描述" :ref="getSectionRef"/>
+      <Detail_03Facility titile="设施" :ref="getSectionRef"  :houseFacility="mainPart.dynamicModule.facilityModule.houseFacility" />
+      <detail_04Landlord  :landlordInfo="mainPart.dynamicModule.landlordModule" titile="房东" :ref="getSectionRef"/>
+      <detail_05Comment  :commentInfo="mainPart.dynamicModule.commentModule" titile="评论" :ref="getSectionRef"/>
+      <detail_06Notice  :orderRules="mainPart.dynamicModule.rulesModule.orderRules" titile="须知" :ref="getSectionRef"/>
+      <detail_07Map  :positionInfo="mainPart.dynamicModule.positionModule" titile="周边" :ref="getSectionRef"/>
+      <detail_08Intro  :priceInfo="mainPart.introductionModule"/>
     </template>
-    
-    <!-- 3. infos -->
-    <detail_02Infos  :topInfos="mainPart.topModule" titile="描述" :ref="getSectionRef"/>
-    <Detail_03Facility titile="设施" :ref="getSectionRef"  :houseFacility="mainPart.dynamicModule.facilityModule.houseFacility" />
-    <detail_04Landlord  :landlordInfo="mainPart.dynamicModule.landlordModule" titile="房东" :ref="getSectionRef"/>
-    <detail_05Comment  :commentInfo="mainPart.dynamicModule.commentModule" titile="评论" :ref="getSectionRef"/>
-    <detail_06Notice  :orderRules="mainPart.dynamicModule.rulesModule.orderRules" titile="须知" :ref="getSectionRef"/>
-    <detail_07Map  :positionInfo="mainPart.dynamicModule.positionModule" titile="周边" :ref="getSectionRef"/>
-    <detail_08Intro  :priceInfo="mainPart.introductionModule"/>
-    
+
   </div>
 </template>
 
@@ -54,9 +52,9 @@ const onClickLeft = () => {
   router.back()
 }
 const detailRef = ref()
-const { scrollTop } = useScroll()
+const { scrollTop } = useScroll(detailRef)
 const showTabControl = computed(() => {
-  return scrollTop.value > 300
+  return scrollTop.value > 250
 })
 
 
@@ -66,8 +64,11 @@ const titles = computed(() => {
 })
 
 const getSectionRef = (value) => {
-  const title = value.$el.getAttribute("titile")
-  sectionEls.value[title] = value.$el
+  if(value) {
+    const title = value.$el.getAttribute("titile")
+    sectionEls.value[title] = value.$el
+  }
+ 
 }
 
 </script>
